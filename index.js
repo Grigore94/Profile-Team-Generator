@@ -1,8 +1,8 @@
 // Dependencies 
-const Employee = require("/Employee");
-const Manager = require("/Manager");
-const Engineer = require("/Engineer");
-const Intern = require("/Intern");
+const Employee = require("./app/Employee");
+const Manager = require("./app/Manager");
+const Engineer = require("./app/Engineer");
+const Intern = require("./app/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
