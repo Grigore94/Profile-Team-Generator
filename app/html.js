@@ -1,20 +1,20 @@
 const path = require('path');
 const fs = require('fs');
-const templatesDir = path.resolve(dirname, "../templates");
+const templatesDir = path.resolve("./templates");
 
-const define = employees => {
+const render = employees => {
     const html = [];
 
     html.push(employees.filter(employee => employee.getStatus() === "Manager")
-    .map(manager => defineManager(manager)));
+    .map(manager => renderManager(manager)));
     html.push(employees.filter(employee => employee.getStatus() === "Engineer")
-    .map(engineer => defineEngineer(engineer)));
+    .map(engineer => renderEngineer(engineer)));
     html.push(employees.filter(employee => employee.getStatus() === "Intern")
-    .map(intern => defineIntern(intern)));
-    return defineMain(html.join(""));
+    .map(intern => renderIntern(intern)));
+    return renderMain(html.join(""));
 };
 //
-const defineManager = manager => {
+const renderManager = manager => {
     let template = fs.readFileSync(path.resolve(templatesDir, "manager.html"),"utf8");
     template = replacePlaceholders(template, "name", manager.getName());
     template = replacePlaceholders(template, "status", manager.getStatus());
@@ -24,7 +24,7 @@ const defineManager = manager => {
     return template;
 };
 //
-const defineEngineer = engineer => {
+const renderEngineer = engineer => {
     let template = fs.readFileSync(path.resolve(templatesDir, "engineer.html"),"utf8");
     template = replacePlaceholders(template, "name", engineer.getName());
     template = replacePlaceholders(template, "status", engineer.getStatus());
@@ -34,7 +34,7 @@ const defineEngineer = engineer => {
     return template;
 };
 //
-const defineIntern = intern => {
+const renderIntern = intern => {
     let template = fs.readFileSync(path.resolve(templatesDir, "intern.html"),"utf8");
     template = replacePlaceholders(template, "name", intern.getName());
     template = replacePlaceholders(template, "status", intern.getStatus());
@@ -44,7 +44,7 @@ const defineIntern = intern => {
     return template;
 };
 
-const defineMain = html => {
+const renderMain = html => {
     const template = fs.readFileSync(path.resolve(templatesDir, "main.html"), "utf8");
     return replacePlaceholders(template, "team", html);
   };

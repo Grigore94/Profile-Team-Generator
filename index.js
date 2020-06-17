@@ -7,48 +7,44 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
+const OUTPUT_DIR = path.resolve("./output");
+const outputPath = path.join("team.html");
 
-const render = require("./lib/htmlRenderer");
+const render = require("./app/html");
 
-
-
-
-//empty array that can store the team members in, Name ID and Email are in every array becase each array becasue that information is prevalent to every employee 
 const teamArray = [];
 
 // Questions 
 
-// Manager: 
+// Manager
 const managerQuestions = [
 
     {
         type: 'input',
         name: 'managerName',
-        message: 'Please enter the name of the manager of this team, or your name if you are the manager of this team. '
+        message: 'Please enter the name of the manager of this team'
     },
 
     {
         type: 'input',
         name: 'managerID',
-        message: 'What is this managers ID number, enter your ID number if you are the manager of this team'
+        message: 'What is this managers ID number'
     },
 
     {
         type: 'input',
         name: 'managerEmail',
-        message: 'What is this managers Email adress, enter your email adress if you are the manager of this team'
+        message: 'What is this managers Email adress'
     },
 
     {
         type: 'input',
         name: 'office',
-        message: 'What is this managers office number? if you are the manager of this team, enter your office number'
+        message: 'What is this managers office number?'
     },
 ]
 
-//Engineer: 
+//Engineer
 const engineerQuestions = [
 
     {
@@ -76,7 +72,7 @@ const engineerQuestions = [
     },
 ]
 
-//Intern:
+//Intern
 const internQuestions = [
 
     {
@@ -110,7 +106,7 @@ const anotherOne = [
     {
         type: 'list',
         name: 'nextEmployee',
-        message: 'Select the type of team member you would like to add next, if you are done select "Done" to generate your team ',
+        message: 'Select the type of team member you would like to add next, if you are done select "Done"',
         choices: ['Engineer', 'Intern', 'Done']
     }
 ]
@@ -137,8 +133,8 @@ function next() {
                 internPromt();
                 break;
             case 'Done':
-                console.log('Creating your team!')
-                makeTeam();
+                console.log('Your page is created!')
+                createTeam();
         }
     })
 }
@@ -167,9 +163,7 @@ function engineerPromt() {
         let id = response.engiID;
         let email = response.engiEmail;
         let github = response.github;
-       r 
         const engineer = new Engineer (name, id, email, github);
-
         teamArray.push(engineer);
         console.log(teamArray);
         
@@ -197,7 +191,7 @@ function internPromt() {
 }
 
 //Function to make the file 
-function makeTeam() {
+function createTeam() {
 fs.writeFile(outputPath, render(teamArray), function(err) {
 if (err) { 
     return console.log(err)
