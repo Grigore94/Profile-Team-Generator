@@ -50,7 +50,7 @@ const renderMain = html => {
   };
   
   const replacePlaceholders = (template, placeholder, value) => {
-    const pattern = new RegExp("{{ " + placeholder + " }}");
+    const pattern = new RegExp("{{ " + placeholder + " }}", "gm");
     return template.replace(pattern, value);
   };
   
